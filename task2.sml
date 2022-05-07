@@ -31,7 +31,7 @@ card_value((Diamonds, King));
 
 
 
-    (*3.c*)
+    (*2.c*)
 fun remove_card (cs, c, e) =
     let fun in_fun (curCards, resCards) =
         case curCards of
@@ -107,3 +107,32 @@ score([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)], 20);
 score([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)], 34);
 score([(Diamonds, Num 10),(Spades, Jack),(Hearts, Ace)], 20);
 score([(Diamonds, Num 10),(Spades, Jack),(Hearts, Ace)], 34);
+
+
+
+    (*2.g*)
+fun officiate(cards, moves, goal) =
+    let fun next_move(handCards, curCards, curMoves) =
+        if sum_cards(handCards) > goal
+        then score(handCards, goal)
+        else case curMoves of
+                [] => score(handCards, goal)
+                |hdMoves::tlMoves => case hdMoves of
+                                        Discard card => next_move(remove_card(handCards, card, IllegalMove), curCards, tlMoves)
+                                        |Draw => case curCards of
+                                                    [] => score(handCards, goal)
+                                                    | hdCard::tlCards => next_move(hdCard :: handCards, tlCards, tlMoves)
+    in
+        next_move([], cards, moves)
+    end
+;
+
+officiate([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)],
+[Draw, Draw],
+20);
+officiate([(Diamonds, Num 10), (Spades, Jack), (Diamonds, Ace),(Hearts, Ace)],
+[Draw, Draw, Discard (Spades, Jack), Draw],
+21);
+officiate([(Diamonds, Num 10), (Spades, Ace), (Spades, Jack), (Hearts, Ace)],
+[Draw, Draw, Discard (Diamonds, Ace)],
+20);
