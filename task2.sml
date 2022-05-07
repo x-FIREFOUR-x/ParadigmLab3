@@ -88,3 +88,22 @@ fun sum_cards(cards) =
 
 sum_cards([]);
 sum_cards([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)]);
+
+
+
+    (*2.f*)
+fun score(cards, goal) =
+    let val preScore = if sum_cards(cards) > goal
+                       then 3 * (sum_cards(cards) - goal)
+                       else (goal - sum_cards(cards))
+    in 
+        if all_same_color(cards)
+        then preScore div 2
+        else preScore
+    end
+;
+
+score([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)], 20);
+score([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)], 34);
+score([(Diamonds, Num 10),(Spades, Jack),(Hearts, Ace)], 20);
+score([(Diamonds, Num 10),(Spades, Jack),(Hearts, Ace)], 34);
