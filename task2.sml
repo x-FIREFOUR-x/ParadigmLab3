@@ -28,3 +28,25 @@ card_value((Hearts, Num 9));
 card_value((Clubs, Jack));
 card_value((Spades, Ace));
 card_value((Diamonds, King));
+
+
+
+    (*3.c*)
+fun remove_card (cs, c, e) =
+    let fun in_fun (curCards, resCards) =
+        case curCards of
+        [] => raise e
+        | hd::tl => if hd = c
+                    then resCards @ tl
+                    else in_fun(tl, hd :: resCards)
+    in
+        in_fun(cs, [])
+    end
+;
+
+remove_card([(Hearts, Num 10), (Hearts, Num 9), (Diamonds, King), (Spades, Ace)],
+(Spades, Ace), Empty);
+remove_card([(Hearts, Num 9), (Hearts, Num 9), (Diamonds, King), (Spades, Ace)],
+(Hearts, Num 9), Empty);
+remove_card([(Hearts, Num 10), (Hearts, Num 9), (Diamonds, King), (Spades, Ace)],
+(Hearts, Ace), Empty);
