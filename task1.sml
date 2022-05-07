@@ -59,3 +59,22 @@ fun get_substitutions2(strListList, str) =
 get_substitutions2([],"Jack");
 get_substitutions2([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Jeff");
 get_substitutions2([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Olexandr");
+
+
+
+    (*1.d*)
+fun similar_names(nameListList, {first = fname, middle = mname, last = lname}) =
+	let fun in_fun(alternatFNameList, fullNamesList) =
+		case alternatFNameList of
+		[] => fullNamesList
+		|hd :: tl => in_fun(tl,  {first = hd, middle = mname, last = lname} :: fullNamesList)
+	in
+	   {first = fname, middle = mname, last = lname} :: in_fun(get_substitutions2(nameListList, fname), [])
+	end
+;
+
+similar_names([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]],
+{first="Fred", middle="W", last="Smith"});
+similar_names([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]],
+{first="Olexandr", middle="W", last="Smith"});
+similar_names([],{first="Olexandr", middle="W", last="Smith"});
