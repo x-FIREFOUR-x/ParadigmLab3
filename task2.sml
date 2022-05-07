@@ -50,3 +50,25 @@ remove_card([(Hearts, Num 9), (Hearts, Num 9), (Diamonds, King), (Spades, Ace)],
 (Hearts, Num 9), Empty);
 remove_card([(Hearts, Num 10), (Hearts, Num 9), (Diamonds, King), (Spades, Ace)],
 (Hearts, Ace), Empty);
+
+
+
+    (*2.d*)
+fun all_same_color (cards) =
+    let val color = case cards of
+                    [] => Black
+                    |hd::tl => card_color(hd)
+    fun in_fun(list, color) =
+        case list of
+        [] => true
+        |hd::tl => if card_color(hd) = color
+                   then in_fun(tl, color)
+                   else false
+    in
+        in_fun(cards, color)
+    end
+;
+
+all_same_color([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)]);
+all_same_color([(Diamonds, Num 10),(Diamonds, Jack),(Spades, Ace)]);
+all_same_color([]);
