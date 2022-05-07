@@ -32,9 +32,9 @@ all_except_option( "ddd", ["ddd"]);
 fun get_substitutions1(strListList, str) =
     case strListList of
     [] => []
-    |hd::td => case all_except_option(str, hd) of
-            SOME list  => list @ get_substitutions1 (td, str)
-            |NONE=> get_substitutions1(td, str)
+    |hd::tl => case all_except_option(str, hd) of
+                SOME list => list @ get_substitutions1 (tl, str)
+                |NONE => get_substitutions1(tl, str)
 ;
 
 get_substitutions1([],"Jack");
@@ -43,4 +43,19 @@ get_substitutions1([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeff
 
 
 
+    (*1.c*)
+fun get_substitutions2(strListList, str) =
+    let fun in_fun(curList, resList) =
+        case curList of
+        [] => resList
+        | hd::tl => case all_except_option(str, hd) of
+                    SOME list => in_fun(tl, resList @ list)
+                    |NONE => in_fun(tl, resList)
+    in
+        in_fun(strListList, [])
+    end
+;
 
+get_substitutions2([],"Jack");
+get_substitutions2([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Jeff");
+get_substitutions2([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Olexandr");
