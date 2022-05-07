@@ -72,3 +72,19 @@ fun all_same_color (cards) =
 all_same_color([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)]);
 all_same_color([(Diamonds, Num 10),(Diamonds, Jack),(Spades, Ace)]);
 all_same_color([]);
+
+
+
+    (*2.e*)
+fun sum_cards(cards) =
+    let fun in_fun(cards, sum) =
+        case cards of
+        [] => sum
+        | hd::tl => in_fun(tl, card_value(hd) + sum)
+    in
+        in_fun(cards, 0)
+    end
+;
+
+sum_cards([]);
+sum_cards([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)]);
