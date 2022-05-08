@@ -23,11 +23,6 @@ fun all_except_option(str, strlist) =
     end
 ;
 
-all_except_option( "ddd", ["3", "ddd", "1" , "2"]);
-all_except_option( "ddd", ["3", "ddd1", "1" , "2"]);
-all_except_option( "ddd", ["ddd"]);
-
-
 
     (*1.b*)
 fun get_substitutions1(strListList, str) =
@@ -37,11 +32,6 @@ fun get_substitutions1(strListList, str) =
                         SOME list => list @ get_substitutions1 (tl, str)
                         |NONE => get_substitutions1(tl, str)
 ;
-
-get_substitutions1([],"Jack");
-get_substitutions1([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Jeff");
-get_substitutions1([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Olexandr");
-
 
 
     (*1.c*)
@@ -57,11 +47,6 @@ fun get_substitutions2(strListList, str) =
     end
 ;
 
-get_substitutions2([],"Jack");
-get_substitutions2([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Jeff");
-get_substitutions2([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]], "Olexandr");
-
-
 
     (*1.d*)
 fun similar_names(nameListList, {first = fname, middle = mname, last = lname}) =
@@ -73,9 +58,3 @@ fun similar_names(nameListList, {first = fname, middle = mname, last = lname}) =
 	   {first = fname, middle = mname, last = lname} :: in_fun(get_substitutions2(nameListList, fname), [])
 	end
 ;
-
-similar_names([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]],
-{first="Fred", middle="W", last="Smith"});
-similar_names([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]],
-{first="Olexandr", middle="W", last="Smith"});
-similar_names([],{first="Olexandr", middle="W", last="Smith"});
