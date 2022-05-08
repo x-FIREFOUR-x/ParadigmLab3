@@ -9,12 +9,6 @@ fun card_color(card) =
         |_ => Red
 ;
 
-card_color((Hearts, Num 2));
-card_color((Clubs, Jack));
-card_color((Spades, Num 2));
-card_color((Diamonds, Jack));
-
-
 
   (*2.b*)
 fun card_value(card) = 
@@ -23,12 +17,6 @@ fun card_value(card) =
         |(_, Ace) => 11
         |_ => 10
 ;
-
-card_value((Hearts, Num 9));
-card_value((Clubs, Jack));
-card_value((Spades, Ace));
-card_value((Diamonds, King));
-
 
 
     (*2.c*)
@@ -44,14 +32,6 @@ fun remove_card (cs, c, e) =
         in_fun(cs, [])
     end
 ;
-
-remove_card([(Hearts, Num 10), (Hearts, Num 9), (Diamonds, King), (Spades, Ace)],
-(Spades, Ace), Empty);
-remove_card([(Hearts, Num 9), (Hearts, Num 9), (Diamonds, King), (Spades, Ace)],
-(Hearts, Num 9), Empty);
-remove_card([(Hearts, Num 10), (Hearts, Num 9), (Diamonds, King), (Spades, Ace)],
-(Hearts, Ace), Empty);
-
 
 
     (*2.d*)
@@ -71,11 +51,6 @@ fun all_same_color (cards) =
     end
 ;
 
-all_same_color([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)]);
-all_same_color([(Diamonds, Num 10),(Diamonds, Jack),(Spades, Ace)]);
-all_same_color([]);
-
-
 
     (*2.e*)
 fun sum_cards(cards) =
@@ -87,10 +62,6 @@ fun sum_cards(cards) =
         in_fun(cards, 0)
     end
 ;
-
-sum_cards([]);
-sum_cards([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)]);
-
 
 
     (*2.f*)
@@ -106,12 +77,6 @@ fun score(cards, goal) =
             preScore
     end
 ;
-
-score([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)], 20);
-score([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)], 34);
-score([(Diamonds, Num 10),(Spades, Jack),(Hearts, Ace)], 20);
-score([(Diamonds, Num 10),(Spades, Jack),(Hearts, Ace)], 34);
-
 
 
     (*2.g*)
@@ -131,13 +96,3 @@ fun officiate(cards, moves, goal) =
         next_move([], cards, moves)
     end
 ;
-
-officiate([(Diamonds, Num 10),(Diamonds, Jack),(Hearts, Ace)],
-[Draw, Draw],
-20);
-officiate([(Diamonds, Num 10), (Spades, Jack), (Diamonds, Ace),(Hearts, Ace)],
-[Draw, Draw, Discard (Spades, Jack), Draw],
-21);
-officiate([(Diamonds, Num 10), (Spades, Ace), (Spades, Jack), (Hearts, Ace)],
-[Draw, Draw, Discard (Diamonds, Ace)],
-20);
